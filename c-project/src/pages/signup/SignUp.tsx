@@ -1,8 +1,8 @@
 
 import { Label, Input, Button } from '@fluentui/react-components'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 const SignUp = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -29,6 +29,15 @@ const SignUp = () => {
         }
 
     }
+
+    // handle if already loggen in.
+    useEffect(()=>{
+        const token =  localStorage.getItem("token");
+        if(token){
+         navigate("/dashboard");
+        }
+     
+     },[])
     return (
         <div className='w-full min-h-full  bg-[#081420]'>
             <div className=' bg-[#081420]  p-8 rounded  shadow-md w-full flex justify-center items-center  h-full mt-40 '>
@@ -68,7 +77,8 @@ const SignUp = () => {
                             {/* Login Button */}
                             <Button type='submit' className='!text-white !bg-[#2DC535] w-full'>Sign Up</Button>
                         </div>
-                        <p className='text-white text-center '>Alread a member? Login</p>
+                       <div className='text-center'> <Link to="/" className='text-white text-center '>Alread a member? Login</Link></div>
+
                     </form>
                 </div>
             </div>
